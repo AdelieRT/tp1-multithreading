@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+
 import unittest
 import numpy as np
 from task import Task
@@ -6,7 +7,8 @@ from task import Task
 
 class TaskTest(unittest.TestCase):
     def test_equals(self):
-        np.testing.assert_allclose(Task.x @ Task.a, Task.b)
+        t = Task()
+        np.testing.assert_allclose(t.x @ t.a, t.b)
 
 
 if __name__ == "__main__":
