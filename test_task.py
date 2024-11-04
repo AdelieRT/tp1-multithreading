@@ -8,6 +8,7 @@ from task import Task
 class TaskTest(unittest.TestCase):
     def test_equals(self):
         t = Task()
+        t.work()
         np.testing.assert_allclose(t.x @ t.a, t.b)
 
 
