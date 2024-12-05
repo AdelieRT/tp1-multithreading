@@ -6,13 +6,12 @@ class QueueManager(BaseManager):
     pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     task_queue = Queue(maxsize=100)
-    QueueManager.register('get_task_queue', callable=lambda: task_queue)
+    QueueManager.register("get_task_queue", callable=lambda: task_queue)
 
     result_queue = Queue(maxsize=100)
-    QueueManager.register('get_result_queue', callable=lambda: result_queue)
+    QueueManager.register("get_result_queue", callable=lambda: result_queue)
 
-    manager = QueueManager(address=('', 50000), authkey=b'yoyoledoggo')
-    server = manager.get_server()
-    server.serve_forever()
+    manager = QueueManager(address=("", 50000), authkey=b"yoyoledoggo")
+    server = manager.get_server().serve_forever()

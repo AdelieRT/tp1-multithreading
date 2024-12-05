@@ -8,12 +8,12 @@ class Minion(QueueClient):
     # récupère les taches en cours sur task_queue les fait
     # et les mets dans result_queue
     def working(self):
-        while(self.task_queue.empty()==False):
+        while not self.task_queue.empty():
             task = self.task_queue.get()
             task.work()
             self.result_queue.put(task)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     mignon = Minion()
     mignon.working()
