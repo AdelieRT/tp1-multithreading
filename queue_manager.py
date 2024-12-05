@@ -2,10 +2,6 @@ from multiprocessing.managers import BaseManager
 from multiprocessing import Queue
 
 class QueueManager(BaseManager):
-    # def __init__(self, task_queue=np.randint(3,100), result_queue=np.randint(3,100)):
-    #     super.__init__()
-    #     self.task_queue = Queue(task_queue)
-    #     self.result_queue = Queue(result_queue)
     pass
         
 if __name__== "_main_":
