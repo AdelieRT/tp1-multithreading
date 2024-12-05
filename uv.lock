@@ -167,7 +167,7 @@ wheels = [
 ]
 
 [[package]]
-name = "tp-multithreading"
+name = "tp1-multithreading"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
