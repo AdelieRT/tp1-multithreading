@@ -57,7 +57,6 @@ class Task:
         else:
             return False
 
-
 if __name__ == "__main__":
     task = Task(0, 10)
     task_json = task.to_json()

@@ -11,7 +11,7 @@ class TaskTest(unittest.TestCase):
         t.work()
         np.testing.assert_allclose(t.a @ t.x, t.b)
 
-    def test_tp3():
+    def test_tp3(self):
         a = Task()
         txt = a.to_json()
         b = Task.from_json(txt)
