@@ -15,7 +15,8 @@ class TaskTest(unittest.TestCase):
         a = Task()
         txt = a.to_json()
         b = Task.from_json(txt)
-        np.testing.assert_equal(a,b)
+        np.testing.assert_equal(a, b)
+
 
 if __name__ == "__main__":
     unittest.main()
