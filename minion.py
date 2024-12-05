@@ -3,16 +3,17 @@ from queue_client import QueueClient
 
 class Minion(QueueClient):
     def __init__(self):
-        self.super()
+        super().__init__()
 
     # récupère les taches en cours sur task_queue les fait
     # et les mets dans result_queue
     def working(self):
-        for task in self.task_queue:
+        while(self.task_queue.empty()==False):
+            task = self.task_queue.get()
             task.work()
             self.result_queue.put(task)
 
 
-if __name__ == "_main_":
+if __name__ == '__main__':
     mignon = Minion()
     mignon.working()
