@@ -68,7 +68,6 @@ public:
       x_array.push_back(this->x.coeff(i,1));
     }
     
-
     task_json["identifier"] = this->identifier;
     task_json["size"] = this->size;
     task_json["a"] = a_array;
@@ -80,12 +79,37 @@ public:
   }
 
   Task from_json(std::string text) {
+    nlohmann::json task_json = nlohmann::json::parse(text);
 
-    return 0;
+    Task task;
+    task.identifier = task_json["identifier"];
+    task.size = task_json["size"];
+    
+    int indice = 0;
+    task.a = Eigen::MatrixXf(task.size, task.size);
+    for (int i = 0; i < task.size; i++) {
+      for (int j = 0; j < task.size; j++) {
+        task.a(i, j) = task_json["a"][indice++];
+      }
+    }
+    
+    task.b = Eigen::MatrixXf(t.size, 1);
+    for (int i = 0; i < task.size; i++) {
+      task.b(i, 0) = task_json["b"][i];
+    }
+    
+    task.x = Eigen::MatrixXf(task.size, 1);
+    for (int i = 0; i < task.size; i++) {
+      task.x(i, 0) = task_json["x"][i];
+    }
+
+    task.time = task_json["time"];
+
+    return task;
   }
 
-  Task operator=(Task const& obj) {
-    return 0;
+  bool operator==(Task const& other) {
+     return (this->identifier == other.identifier) && (this->size == other.size) && ((this->a - other.a).norm() == 0) && ((this->b - other.b).norm()) && ((this->x - other.x).norm()) && (this->time == other.time);
   }
 };
 
@@ -93,13 +117,17 @@ int main(int argc, char **argv) {
   Task t = Task();
   t.work();
   //durée de taches en seconde
-  std::cout << (t.time)/1e9 << " sec" << std::endl;
+  std::cout << "Task: " << (t.time)/1e9 << " sec" << std::endl;
   std::string t_to_j = t.to_json();
-  //task to json
-  std::cout << t_to_j << std::endl;
+  // //task to json
+  // std::cout << t_to_j << std::endl;
 
-  //dans l'autre sens il faudra couper à chaque fois qu'on atteindra la size
-
+  Task task_test = t.from_json(t_to_j);
+  //json to task
+  std::cout << "Task test: " << (task_test.time)/1e9 << " sec" << std::endl;
+  
+  //task1 == task2
+  std::cout << "task = task_test: " << t==task_test << std::endl;
 
   cpr::Response r = cpr::Get(cpr::Url{"http://localhost:8000/"});
   r.status_code;            // 200
