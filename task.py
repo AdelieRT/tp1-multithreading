@@ -45,7 +45,14 @@ class Task:
         return task
 
     def __eq__(self, other: "Task") -> bool:
-        return ( self.identifier == other.identifier and self.size == other.size and (self.a == other.a).all and (self.b == other.b).all and (self.x == other.x).all and self.time == other.time ):
+        return (
+            self.identifier == other.identifier
+            and self.size == other.size
+            and (self.a == other.a).all
+            and (self.b == other.b).all
+            and (self.x == other.x).all
+            and self.time == other.time
+        )
 
 
 if __name__ == "__main__":
