@@ -32,6 +32,8 @@ public:
     this->identifier = identifier;
     if (size == 0) {
       this->size = std::rand() % 2700 + 300; // Random size between 300 and 3000
+    } else {
+      this->size = size;
     }
     // initialisation de a et b avec des randoms
     this->a = Eigen::MatrixXf::Random(this->size, this->size);
@@ -121,14 +123,14 @@ public:
 };
 
 int main(int argc, char **argv) {
-
+  // CODE COMPLEXE
   while (true) {
     cpr::Response r = cpr::Get(cpr::Url{"http://localhost:8000/"});
 
     if (r.status_code == 200) {
       // std::cout << (r.text) << std::endl;
 
-      Task t = Task().from_json(r.text);
+      Task t = Task(0, 600).from_json(r.text);
       t.work();
 
       // durée de taches en seconde
@@ -156,5 +158,18 @@ int main(int argc, char **argv) {
     }
   }
 
+  //// CODE SIMPLE
+  // float performance = 0;
+  // int i=0;
+  // const char* str = argv[1];
+  // int nb_taches = std::stoi(str);
+  // while (i<nb_taches){
+  //   Task t = Task(0,600);
+  //   t.work();
+  //   performance += (t.time) / 1e9;
+  //   i++;
+  // }
+  // std::cout << "temps de traitement total des "<< nb_taches << " tache(s) : "
+  // <<  performance << " sec" << std::endl;
   return 0;
 }

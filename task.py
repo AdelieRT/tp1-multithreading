@@ -55,12 +55,11 @@ class Task:
         )
 
 
+## CODE SIMPLE
 # if __name__ == "__main__":
-#     task = Task(0, 10)
-#     task.work()
-#     print("task time: ", task.time, " sec")
-#     task_json = task.to_json()
-#     # print(task_json)
-#     json_task = Task.from_json(task_json)
-#     # print(json_task)
-#     print("task == task_test: ",task == json_task)
+#    performance = 0
+#    for i in range(int(sys.argv[1])):
+#        t = Task(0,600)
+#        t.work()
+#        performance += t.time
+#    print("temps de traitement total des ", sys.argv[1]," tache(s) : ", performance," sec")
