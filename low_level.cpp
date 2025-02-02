@@ -86,11 +86,10 @@ public:
     task.identifier = task_json["identifier"];
     task.size = task_json["size"];
 
-    int indice = 0;
     task.a = Eigen::MatrixXf(task.size, task.size);
     for (int i = 0; i < task.size; i++) {
       for (int j = 0; j < task.size; j++) {
-        task.a(i, j) = task_json["a"][indice++];
+        task.a(i, j) = task_json["a"][i][j];
       }
     }
 
@@ -104,7 +103,11 @@ public:
       task.x(i, 0) = task_json["x"][i];
     }
 
-    task.time = task_json["time"];
+    if (task_json.contains("time") && task_json["time"].is_number()) {
+      task.time = task_json["time"];
+    } else {
+      task.time = 0;
+    }
 
     return task;
   }
@@ -118,25 +121,38 @@ public:
 };
 
 int main(int argc, char **argv) {
-  Task t = Task();
-  t.work();
-  // durée de taches en seconde
-  std::cout << "Task: " << (t.time) / 1e9 << " sec" << std::endl;
-  std::string t_to_j = t.to_json();
-  // //task to json
-  // std::cout << t_to_j << std::endl;
 
-  Task task_test = t.from_json(t_to_j);
-  // json to task
-  std::cout << "Task test: " << (task_test.time) / 1e9 << " sec" << std::endl;
+  while (true) {
+    cpr::Response r = cpr::Get(cpr::Url{"http://localhost:8000/"});
 
-  // task1 == task2
-  bool res = (t == task_test);
-  std::cout << "task = task_test: " << res << std::endl;
+    if (r.status_code == 200) {
+      // std::cout << (r.text) << std::endl;
 
-  cpr::Response r = cpr::Get(cpr::Url{"http://localhost:8000/"});
-  r.status_code;            // 200
-  r.header["content-type"]; // application/json; charset=utf-8
-  r.text;                   // JSON text string
+      Task t = Task().from_json(r.text);
+      t.work();
+
+      // durée de taches en seconde
+      std::cout << "task time: " << (t.time) / 1e9 << " sec" << std::endl;
+
+      std::string t_to_j = t.to_json();
+      // //task to json
+      // std::cout << t_to_j << std::endl;
+      // Task task_test = t.from_json(t_to_j);
+      // //json to task
+      // std::cout << "Task test: " << (task_test.time) / 1e9 << " sec" <<
+      // std::endl;
+
+      // // task1 == task2
+      // bool res = (t == task_test);
+      // std::cout << "task = task_test: " << res << std::endl;
+
+      cpr::Response r_post =
+          cpr::Post(cpr::Url{"http://localhost:8000/"}, cpr::Body{t_to_j},
+                    cpr::Header{{"Content-Type", "application/json"}});
+    } else {
+      std::cerr << "Erreur avant de fetch: " << r.status_code << std::endl;
+    }
+  }
+
   return 0;
 }

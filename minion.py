@@ -12,6 +12,7 @@ class Minion(QueueClient):
             task = self.task_queue.get()
             task.work()
             self.result_queue.put(task)
+            print("done")
 
 
 if __name__ == "__main__":

@@ -55,10 +55,12 @@ class Task:
         )
 
 
-if __name__ == "__main__":
-    task = Task(0, 10)
-    task_json = task.to_json()
-    # print(task_json)
-    json_task = Task.from_json(task_json)
-    # print(json_task)
-    print(task == json_task)
+# if __name__ == "__main__":
+#     task = Task(0, 10)
+#     task.work()
+#     print("task time: ", task.time, " sec")
+#     task_json = task.to_json()
+#     # print(task_json)
+#     json_task = Task.from_json(task_json)
+#     # print(json_task)
+#     print("task == task_test: ",task == json_task)
