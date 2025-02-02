@@ -19,29 +19,28 @@ class Boss(QueueClient):
     def verify_task(self):
         if (self.nb_taches == self.result_queue.qsize()) and self.nb_taches != 0:
             # toutes les tasks ont été faites
-            print("Good Job!")
+            # print("Good Job!")
             print(self.result_queue.get())
 
-            performance = 0
-            while not self.result_queue.empty():
-                performance += self.result_queue.get().time
-            performance = performance / self.nb_taches
-            print(
-                "Temps d'éxecution moyen: ",
-                performance,
-                " sec, pour ",
-                self.nb_taches,
-                " tache(s)",
-            )
+            # performance = 0
+            # while not self.result_queue.empty():
+            #     performance += self.result_queue.get().time
+            # performance = performance / self.nb_taches
+            # print(
+            #     "Temps d'éxecution moyen: ",
+            #     performance,
+            #     " sec, pour ",
+            #     self.nb_taches,
+            #     " tache(s)",
+            # )
 
-            self.nb_taches = 0
         else:
             # print("Work Harder!")
             return -1
 
     def working(self, nb_taches=10):
         for i in range(nb_taches):
-            self.create_task()
+            self.create_task(size=600)
         start = time.perf_counter()
         while self.verify_task() == -1:
             pass

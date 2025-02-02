@@ -137,6 +137,7 @@ int main(int argc, char **argv) {
       std::string t_to_j = t.to_json();
       // //task to json
       // std::cout << t_to_j << std::endl;
+
       // Task task_test = t.from_json(t_to_j);
       // //json to task
       // std::cout << "Task test: " << (task_test.time) / 1e9 << " sec" <<
@@ -146,6 +147,7 @@ int main(int argc, char **argv) {
       // bool res = (t == task_test);
       // std::cout << "task = task_test: " << res << std::endl;
 
+      // post la reponse
       cpr::Response r_post =
           cpr::Post(cpr::Url{"http://localhost:8000/"}, cpr::Body{t_to_j},
                     cpr::Header{{"Content-Type", "application/json"}});
