@@ -126,3 +126,10 @@ temps de traitement total des  90  tache(s) : 0.37690438200843346 sec
 Simple, c'est à dire sans serveur, ici on ne regarde que le temps de traitement des tâches:
 
 temps de traitement total des 90 tache(s) : 2.63066 sec
+# Commentaire
+On remarque que Python est bien plus rapide que le C++ pour les taches réalisés ici, soit le calcul d'inverse de matrices et de multiplication de matrices, cela peut-être en partie du au fait que pour Python nous utilisons Numpy qui est très optimisé pour le calcul matriciel. De plus, comme vu en cours, Numpy est fait en C et en Fortran, ce qui le rend rapide.
+
+Eigen semble donc simplement moins optimisé que Numpy, pour cette tâche-ci. En effet, l'allocation dynamique de mémoire pour les matrice (puisqu'on utilise ici **MatrixXd**) sous Eigen semble pouvoir causer des ralentissements.
+J'ai aussi cru comprendre que Eigen utilise une structure orientée objet complexe, ce qui le rend plus coûteux. Aussi Eigen semble bien plus lent lorsqu'on compile en Debug qu'en Release, il faudrait tester cela afin de voir si ça permet d'accélérer le programme C++.
+cf: [https://stackoverflow.com/questions/6193546/worse-performance-using-eigen-than-using-my-own-class](https://stackoverflow.com/questions/6193546/worse-performance-using-eigen-than-using-my-own-class
+)
