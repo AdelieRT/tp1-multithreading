@@ -24,7 +24,7 @@ git clone git@github.com:AdelieRT/tp1-multithreading.git
 ```
 puis
 ```
-cd tp-multithreading
+cd tp1-multithreading
 ```
 Une fois au sein du projet, vous devez lancer la commande suivante afin de se syncroniser avec l'environnment uv du projet et avoir toutes les librairies dépendantes:
 ```
