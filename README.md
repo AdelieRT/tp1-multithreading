@@ -1,12 +1,12 @@
 # TP-MultiThreading
-## Installation
+## Installation (sous Linux)
 Ce projet a des dépendances. Il vous faut:
 - CMake
 - uv
 - python 3.8 ou supérieur
 - git
 
-Si vous n'avez pas uv d'installer, lancez dans un terminal:
+Si vous n'avez pas uv d'installé, lancez dans un terminal:
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
